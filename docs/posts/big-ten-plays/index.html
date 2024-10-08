@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ben Strober">
-<meta name="dcterms.date" content="2024-10-04">
+<meta name="dcterms.date" content="2024-10-08">
 
-<title>Commanders are actually good? – Strober's Sportsblog</title>
+<title>Despite changes to clock stoppage, Big Ten teams see similar amount of offensive plays – Strober’s Sportsblog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -149,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Commanders are actually good?</h1>
+      <h1 class="title">Despite changes to clock stoppage, Big Ten teams see similar amount of offensive plays</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">lowercaseword</div>
                 <div class="quarto-category">lowercaseword</div>
@@ -171,7 +171,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">October 4, 2024</p>
+        <p class="date">October 8, 2024</p>
       </div>
     </div>
     
@@ -190,7 +190,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>My first post</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -210,19 +209,228 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>attendance <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://dwillis.github.io/sports-data-files/attendance.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a> plays_2023 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://dwillis.github.io/sports-data-files/footballlogs23.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 146 Columns: 13
+<pre><code>Rows: 1702 Columns: 54
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
-chr  (2): Institution, Conference
-dbl (11): 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023
+chr   (8): HomeAway, Opponent, Result, TeamFull, TeamURL, Outcome, Team, Con...
+dbl  (45): Game, PassingCmp, PassingAtt, PassingPct, PassingYds, PassingTD, ...
+date  (1): Date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a> plays_2024 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://dwillis.github.io/sports-data-files/footballlogs24.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 704 Columns: 54
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr   (8): HomeAway, Opponent, Result, TeamFull, TeamURL, Outcome, Team, Con...
+dbl  (45): Game, PassingCmp, PassingAtt, PassingPct, PassingYds, PassingTD, ...
+date  (1): Date
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 </div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>  bigten23 <span class="ot">&lt;-</span> plays_2023 <span class="sc">|&gt;</span>  <span class="fu">filter</span>(Conference <span class="sc">==</span> <span class="st">"Big Ten Conference"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  bigten24 <span class="ot">&lt;-</span> plays_2024 <span class="sc">|&gt;</span>  <span class="fu">filter</span>(Conference <span class="sc">==</span> <span class="st">"Big Ten Conference"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Here we can see the results from the data just involving the Big Ten Conference.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>bigten23 <span class="sc">|&gt;</span> <span class="fu">group_by</span>(OffensivePlays)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 180 × 54
+# Groups:   OffensivePlays [39]
+    Game Date       HomeAway Opponent    Result PassingCmp PassingAtt PassingPct
+   &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+ 1     1 2023-09-02 &lt;NA&gt;     East Carol… W (30…         26         31       83.9
+ 2     2 2023-09-09 &lt;NA&gt;     Nevada-Las… W (35…         23         28       82.1
+ 3     3 2023-09-16 &lt;NA&gt;     Bowling Gr… W (31…          8         13       61.5
+ 4     4 2023-09-23 &lt;NA&gt;     Rutgers     W (31…         15         21       71.4
+ 5     5 2023-09-30 @        Nebraska    W (45…         16         23       69.6
+ 6     6 2023-10-07 @        Minnesota   W (52…         16         23       69.6
+ 7     7 2023-10-14 &lt;NA&gt;     Indiana     W (52…         19         22       86.4
+ 8     8 2023-10-21 @        Michigan S… W (49…         28         35       80  
+ 9     9 2023-11-04 &lt;NA&gt;     Purdue      W (41…         24         37       64.9
+10    10 2023-11-11 @        Penn State  W (24…          7          8       87.5
+# ℹ 170 more rows
+# ℹ 46 more variables: PassingYds &lt;dbl&gt;, PassingTD &lt;dbl&gt;, RushingAtt &lt;dbl&gt;,
+#   RushingYds &lt;dbl&gt;, RushingAvg &lt;dbl&gt;, RushingTD &lt;dbl&gt;, OffensivePlays &lt;dbl&gt;,
+#   OffensiveYards &lt;dbl&gt;, OffenseAvg &lt;dbl&gt;, FirstDownPass &lt;dbl&gt;,
+#   FirstDownRush &lt;dbl&gt;, FirstDownPen &lt;dbl&gt;, FirstDownTotal &lt;dbl&gt;,
+#   Penalties &lt;dbl&gt;, PenaltyYds &lt;dbl&gt;, Fumbles &lt;dbl&gt;, Interceptions &lt;dbl&gt;,
+#   TotalTurnovers &lt;dbl&gt;, TeamFull &lt;chr&gt;, TeamURL &lt;chr&gt;, Outcome &lt;chr&gt;, …</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>bigten24 <span class="sc">|&gt;</span> <span class="fu">group_by</span>(OffensivePlays)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 96 × 54
+# Groups:   OffensivePlays [35]
+    Game Date       HomeAway Opponent    Result PassingCmp PassingAtt PassingPct
+   &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+ 1     1 2024-08-31 &lt;NA&gt;     Florida In… W (31…         15         25       60  
+ 2     2 2024-09-06 &lt;NA&gt;     Western Il… W (77…         19         21       90.5
+ 3     3 2024-09-14 @        UCLA        W (42…         25         33       75.8
+ 4     4 2024-09-21 &lt;NA&gt;     Charlotte   W (52…         18         27       66.7
+ 5     5 2024-09-28 &lt;NA&gt;     Maryland    W (42…         22         33       66.7
+ 6     6 2024-10-05 @        Northweste… W (41…         25         33       75.8
+ 7     1 2024-08-31 &lt;NA&gt;     Akron       W (52…         18         31       58.1
+ 8     2 2024-09-07 &lt;NA&gt;     Western Mi… W (56…         25         33       75.8
+ 9     3 2024-09-21 &lt;NA&gt;     Marshall    W (49…         18         26       69.2
+10     4 2024-09-28 @        Michigan S… W (38…         26         40       65  
+# ℹ 86 more rows
+# ℹ 46 more variables: PassingYds &lt;dbl&gt;, PassingTD &lt;dbl&gt;, RushingAtt &lt;dbl&gt;,
+#   RushingYds &lt;dbl&gt;, RushingAvg &lt;dbl&gt;, RushingTD &lt;dbl&gt;, OffensivePlays &lt;dbl&gt;,
+#   OffensiveYards &lt;dbl&gt;, OffenseAvg &lt;dbl&gt;, FirstDownPass &lt;dbl&gt;,
+#   FirstDownRush &lt;dbl&gt;, FirstDownPen &lt;dbl&gt;, FirstDownTotal &lt;dbl&gt;,
+#   Penalties &lt;dbl&gt;, PenaltyYds &lt;dbl&gt;, Fumbles &lt;dbl&gt;, Interceptions &lt;dbl&gt;,
+#   TotalTurnovers &lt;dbl&gt;, TeamFull &lt;chr&gt;, TeamURL &lt;chr&gt;, Outcome &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>bigten23 <span class="sc">|&gt;</span> <span class="fu">group_by</span>(TeamFull)<span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mean_offensive_plays =</span> <span class="fu">mean</span>(OffensivePlays, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 14 × 2
+   TeamFull                 mean_offensive_plays
+   &lt;chr&gt;                                   &lt;dbl&gt;
+ 1 Illinois Fighting Illini                 67.6
+ 2 Indiana Hoosiers                         66.7
+ 3 Iowa Hawkeyes                            59.6
+ 4 Maryland Terrapins                       66  
+ 5 Michigan State Spartans                  62.4
+ 6 Michigan Wolverines                      61.6
+ 7 Minnesota Golden Gophers                 62.8
+ 8 Nebraska Cornhuskers                     61.6
+ 9 Northwestern Wildcats                    65.2
+10 Ohio State Buckeyes                      63.9
+11 Penn State Nittany Lions                 71.4
+12 Purdue Boilermakers                      71.2
+13 Rutgers Scarlet Knights                  62.4
+14 Wisconsin Badgers                        71  </code></pre>
+</div>
+</div>
+<p>This data reveals the total amount of offensive plays for each Big Ten team in 2023. Let’s see how it was in 2024. Then, let’s see the averages.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>bigten24 <span class="sc">|&gt;</span> <span class="fu">group_by</span>(TeamFull)<span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mean_offensive_plays =</span> <span class="fu">mean</span>(OffensivePlays, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 18 × 2
+   TeamFull                 mean_offensive_plays
+   &lt;chr&gt;                                   &lt;dbl&gt;
+ 1 Illinois Fighting Illini                 62.2
+ 2 Indiana Hoosiers                         67.7
+ 3 Iowa Hawkeyes                            63.8
+ 4 Maryland Terrapins                       72.6
+ 5 Michigan State Spartans                  60.5
+ 6 Michigan Wolverines                      60  
+ 7 Minnesota Golden Gophers                 61.3
+ 8 Nebraska Cornhuskers                     65.5
+ 9 Northwestern Wildcats                    62.8
+10 Ohio State Buckeyes                      66.6
+11 Oregon Ducks                             70.4
+12 Penn State Nittany Lions                 63.4
+13 Purdue Boilermakers                      53.2
+14 Rutgers Scarlet Knights                  68  
+15 UCLA Bruins                              54.6
+16 USC Trojans                              71.8
+17 Washington Huskies                       65.5
+18 Wisconsin Badgers                        69.2</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mean_offensive_plays_bigten24 <span class="ot">&lt;-</span> bigten24 <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TeamFull) <span class="sc">|&gt;</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_offensive_plays =</span> <span class="fu">mean</span>(OffensivePlays, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>mean_offensive_plays_bigten23 <span class="ot">&lt;-</span> bigten23 <span class="sc">|&gt;</span> </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TeamFull) <span class="sc">|&gt;</span> </span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_offensive_plays =</span> <span class="fu">mean</span>(OffensivePlays, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Now we have the averages from 2024. Are there differences? What do we notice? Let’s calculate the total mean for each season with all the teams combined.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mean_24 <span class="ot">&lt;-</span> bigten24 <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_mean =</span> <span class="fu">mean</span>(OffensivePlays, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mean_23 <span class="ot">&lt;-</span> bigten23 <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_mean =</span> <span class="fu">mean</span>(OffensivePlays, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>As revealed by the code, the mean average of offensive plays in 2023 was 65.14. In 2024, that mean is 64.33. So basically, not a big difference. Let’s create bar charts for this information.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> mean_offensive_plays_bigten23, </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="fu">reorder</span>(TeamFull, <span class="sc">-</span>mean_offensive_plays), </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">weight =</span> mean_offensive_plays</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> mean_offensive_plays_bigten24, </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="fu">reorder</span>(TeamFull, <span class="sc">-</span>mean_offensive_plays), </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">weight =</span> mean_offensive_plays</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>After creating both the bar charts, we see some big changes from certain schools between 2023 and 2024 for the average number of plays. In 2023, Purdue ran the second most amount of plays on average in the conference. However, in 2024, the Boilermakers drop to last in the Big Ten for plays ran. Also, the introduction of Oregon and USC sees them already around the top for plays ran. Maryland leads the conference in 2024 for average plays ran with 72.6. Also, 2024 reveals that all but 2 teams average at least 60 offensive plays a game. In 2023, Iowa was the only team to fall under that mark. Although there are new rules with clock stoppages, it hasn’t caused a large effect on how many offensive plays team’s in the Big Ten run each game.</p>
 
 
 
